@@ -12,7 +12,9 @@ function History() {
   const { theme } = useContext(ThemeContext); // Theme context for theme switching
   const { getCookieValue } = useContext(cookieContext); // Cookie context to retrieve user ID from cookies
   const authToken = getCookieValue("userId"); // User ID from cookies
-
+if (!authToken) {
+  window.location.href = "/login";
+}
   // Fetch codes from the database
   useEffect(() => {
     const fetchCodes = async () => {
