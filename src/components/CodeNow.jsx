@@ -14,6 +14,8 @@ import axios from "axios";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref, get, set, push, update } from "firebase/database";
+import { PistonAPI } from "../../config/APIs";
+
 function CodeNow() {
   const { language, uid, cid } = useParams();
   const { theme, changeTheme } = useContext(ThemeContext);
@@ -71,19 +73,16 @@ function CodeNow() {
     setOutput("Running...");
 
     try {
-      const response = await axios.post(
-        "https://emkc.org/api/v2/piston/execute",
-        {
-          language: language,
-          version: "*", // Use the latest version
-          files: [
-            {
-              name: "code",
-              content: code,
-            },
-          ],
-        }
-      );
+      const response = await axios.post(PistonAPI, {
+        language: language,
+        version: "*", // Use the latest version
+        files: [
+          {
+            name: "code",
+            content: code,
+          },
+        ],
+      });
 
       setOutput(response.data.run.output || "No output returned.");
     } catch (error) {
@@ -138,7 +137,7 @@ function CodeNow() {
         date: formattedDate,
         code: code,
         title: title,
-        language: language
+        language: language,
       };
 
       // Reference to the user's path

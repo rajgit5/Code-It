@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-dom";
-import { auth } from "./firebase";
+import { auth } from "../../config/APIs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { use } from "react";
 function Login() {
